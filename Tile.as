@@ -30,6 +30,8 @@
 		}
 		public function mouseClickListener(evt:MouseEvent)
 		{
+			
+			   
 			var glow:GlowFilter = new GlowFilter(0x00aa72,1.0,7.0,7.0,4,3);
 			if(Main.currentI == -1 && Main.currentJ == -1)
 			{
@@ -37,6 +39,7 @@
 				Main.currentJ = this["j"];
 				this.filters = [glow];
 				Main.selectedTilesArray.push(this);
+				return;
 			}
 			else
 			{
@@ -44,8 +47,9 @@
 				{
 					trace("clicked on same tile");
 					this.filters = [];
-					Main.selectedTilesArray.pop();
-					
+					var t:Tile = Main.selectedTilesArray.pop();
+					t["i"] = -1;
+					t["j"] = -1;
 					if(Main.selectedTilesArray.length > 0 )//there is one or more tile selected
 					{
 						var topTileIndex:int = Main.selectedTilesArray.length - 1;
@@ -57,9 +61,7 @@
 					}
 					else
 					{
-						Main.selectedTilesArray.splice(0);
-						Main.currentI = -1;
-						Main.currentJ = -1;
+						clearAllTileProperties();
 						return;
 					}
 					
@@ -71,14 +73,8 @@
 				
 				if(absI > 1 || absJ > 1)//is not a neighbour
 				{
-					for(var i:int = 0; i < Main.selectedTilesArray.length;i++)
-					{
-						Main.selectedTilesArray[i].filters=[];
-						
-					}
-					Main.selectedTilesArray.splice(0);
-					Main.currentI = -1;
-					Main.currentJ = -1;
+					clearAllTileProperties();
+					return;
 				}
 				else
 				{
@@ -86,6 +82,7 @@
 					Main.selectedTilesArray.push(this);
 					Main.currentI = this["i"];
 					Main.currentJ = this["j"];
+					return;
 				}
 				
 				
@@ -93,8 +90,19 @@
 			
 			
 			
-			
-			
+		}
+		function clearAllTileProperties()
+		{
+			for(var i:int = 0; i < Main.selectedTilesArray.length;i++)
+			{
+				Main.selectedTilesArray[i].filters=[];
+				Main.selectedTilesArray[i]["i"] = -1;
+				Main.selectedTilesArray[i]["j"] = -1;
+				
+			}
+			Main.selectedTilesArray.splice(0);
+			Main.currentI = -1;
+			Main.currentJ = -1;
 		}
 		
 

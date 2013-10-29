@@ -12,6 +12,7 @@
 		public static var selectedTilesArray:Array;
 		private var myDictionary:MyDictionary;
 		private var gameHasToBegin:Boolean = false
+		public var _mochiads_game_id:String = "c082f8567284fce2";
 		public function Main() 
 		{
 			this.addEventListener(Event.ENTER_FRAME,enterFrameListener);
