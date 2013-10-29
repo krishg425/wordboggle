@@ -6,13 +6,27 @@
 	
 	public dynamic class Tile extends MovieClip
 	{
-
+		var tileAlphabetsArray:Array;
+		var tileValuesArray:Array;
+		
 		public function Tile() 
 		{
-			
+			tileAlphabetsArray = new Array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
+			tileValuesArray = new Array(1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10);
 			this.addEventListener(MouseEvent.CLICK,mouseClickListener);
 			
 			// constructor code
+		}
+		public function setAlphabet(char:String)
+		{
+			this.txtAlphabet.text = ""+char;
+			var index:int = tileAlphabetsArray.indexOf(char);
+			var val:int = tileValuesArray[index];
+			this.txtValue.text = ""+val;
+		}
+		public function removeListeners()
+		{
+			this.removeEventListener(MouseEvent.CLICK,mouseClickListener);
 		}
 		public function mouseClickListener(evt:MouseEvent)
 		{
@@ -30,10 +44,25 @@
 				{
 					trace("clicked on same tile");
 					this.filters = [];
-					Main.selectedTilesArray.splice(0);
-					Main.currentI = -1;
-					Main.currentJ = -1;
-					return;
+					Main.selectedTilesArray.pop();
+					
+					if(Main.selectedTilesArray.length > 0 )//there is one or more tile selected
+					{
+						var topTileIndex:int = Main.selectedTilesArray.length - 1;
+						var tileOnTop:Tile = Main.selectedTilesArray[topTileIndex];
+						Main.currentI = tileOnTop["i"];
+						Main.currentJ = tileOnTop["j"];
+						
+						return;
+					}
+					else
+					{
+						Main.selectedTilesArray.splice(0);
+						Main.currentI = -1;
+						Main.currentJ = -1;
+						return;
+					}
+					
 				}
 				
 				

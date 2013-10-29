@@ -2,6 +2,7 @@
 {
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
+	import flash.events.Event;
 	
 	public dynamic class Main extends MovieClip
 	{
@@ -10,8 +11,16 @@
 		public static var currentJ:int = -1;
 		public static var selectedTilesArray:Array;
 		private var myDictionary:MyDictionary;
+		private var gameHasToBegin:Boolean = false
 		public function Main() 
 		{
+			this.addEventListener(Event.ENTER_FRAME,enterFrameListener);
+			
+			// constructor code
+		}
+		private function startGame()
+		{
+			
 			selectedTilesArray = new Array();
 			var settings:TileSettings = new TileSettings();
 			myDictionary = new MyDictionary();
@@ -35,7 +44,13 @@
 			mcFoundWords["wordsCounter"] = 0;
 			mcEnterWord.addEventListener(MouseEvent.CLICK,wordEnteredListener);
 			
-			// constructor code
+		}
+		public function enterFrameListener(evt:Event)
+		{
+			if(gameHasToBegin == true)
+			{
+				startGame();
+			}
 		}
 		public function wordEnteredListener(evt:MouseEvent)
 		{
