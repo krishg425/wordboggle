@@ -29,7 +29,7 @@
 			newString = allWords.replace(findCarriageReturnRegExp, " ");
 			var findNewLineRegExp:RegExp = new RegExp("\n", "gi");
 			newString = newString.replace(findNewLineRegExp, " ");
-			trace( newString );
+			
 			allWords = newString;
 		}
 		public function isValid(word:String):Boolean
@@ -37,10 +37,10 @@
 			//trace('allwords'+allWords);
 			//trace('test word:'+wordsArray[0]);
 			word = word.toLowerCase();
-			trace('word:'+word);
+			
 			var flag:Boolean = false;
 			word = " "+word+" ";
-			trace('index of '+word+' is '+allWords.search(word));
+			
 			if(allWords.search(word) != -1 )
 			{
 				flag = true;

@@ -30,7 +30,11 @@
 		}
 		public function mouseClickListener(evt:MouseEvent)
 		{
-			
+			if(this.filters.length > 0)//clicked on already selected tile
+			{
+				clearAllTileProperties();
+				return;
+			}
 			   
 			var glow:GlowFilter = new GlowFilter(0x00aa72,1.0,7.0,7.0,4,3);
 			if(Main.currentI == -1 && Main.currentJ == -1)
