@@ -22,10 +22,10 @@
 		private var timeElapsed:Number=0;
 		private var timeRemaining:Number;
 		private var totalTimeAllotted:Number = 1 * 60 ;//2 minutes
-		private var gameTimer:Timer = new Timer(1000,120);
+		private var gameTimer:Timer = new Timer(1000,60);
 		private var tileAlphabets= new Array("A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z");
 		private var tileValues= new Array(1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10);	
-		private var gameScore:int = 0;
+		public var gameScore:int = 0;
 		private var gameusedTilesArray:Array = new Array();
 		public function Main() 
 		{
@@ -35,7 +35,11 @@
 		}
 		private function startGame()
 		{
+			timeElapsed = 0;
+			gameScore = 0;
 			gameusedTilesArray = new Array();
+			gameTimer = new Timer(1000,60);
+			gameTimer.removeEventListener(TimerEvent.TIMER,gameTimerListener);
 			gameTimer.addEventListener(TimerEvent.TIMER,gameTimerListener);
 			gameTimer.start();
 			timeRemaining = totalTimeAllotted;
@@ -95,7 +99,8 @@
 				gameTimer.removeEventListener(TimerEvent.TIMER,gameTimerListener);
 				
 				unloadScene();
-				gotoAndPlay(1,"highscores");
+				
+				gotoAndPlay(1,"credits");
 				
 			}
 		}
