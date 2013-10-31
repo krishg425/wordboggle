@@ -1,6 +1,6 @@
 ﻿package  
 {
-	import mochi.as3.*;
+	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.events.Event;
@@ -16,7 +16,7 @@
 		public static var selectedTilesArray:Array;
 		private var myDictionary:MyDictionary;
 		private var gameHasToBegin:Boolean = false
-		//public var _mochiads_game_id:String = "c082f8567284fce2";
+		
 		private var wrongTimer:Timer;
 		private var currentWrong:MovieClip;
 		private var currentFoundWord:MovieClip;
@@ -28,19 +28,18 @@
 		private var tileValues= new Array(1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10);	
 		public var gameScore:int = 0;
 		private var gameusedTilesArray:Array = new Array();
-		public var o:Object;
-		public var boardID:String;
+		
 		public function Main() 
 		{
 			
 			
 			// constructor code
 		}
+		
 		private function startGame()
 		{
 			
-			o = { n: [2, 10, 8, 8, 7, 10, 9, 1, 8, 4, 15, 2, 12, 13, 1, 14], f: function (i:Number,s:String):String { if (s.length == 16) return s; return this.f(i+1,s + this.n[i].toString(16));}};
-			boardID = o.f(0,"");
+			trace('kongregate:'+kongregate);
 			timeElapsed = 0;
 			gameScore = 0;
 			gameusedTilesArray = new Array();
@@ -105,8 +104,8 @@
 				gameTimer.removeEventListener(TimerEvent.TIMER,gameTimerListener);
 				
 				unloadScene();
-				MochiScores.showLeaderboard({boardID: boardID, score: gameScore});
-				gotoAndPlay(1,"highscores");
+				kongregate.scores.submit( gameScore );
+				gotoAndPlay(1,"welcome");
 				
 			}
 		}
